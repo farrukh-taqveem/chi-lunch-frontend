@@ -3,7 +3,6 @@ import { Button } from "primereact/button";
 import { ListBox } from "primereact/listbox";
 import { InputNumber } from "primereact/inputnumber";
 import Api from "../shared/apiService";
-import './home.scss'
 
 class HomeComponent extends Component {
   constructor(props) {
@@ -31,8 +30,8 @@ class HomeComponent extends Component {
   };
   render() {
     return (
-      <div className='p-grid home-page'>
-        <div className="p-col user-selector">
+      <div className='p-grid'>
+        <div className="p-col">
           <h4>Select Participants</h4>
           <ListBox
             value={this.state.selectedUsers}
@@ -46,9 +45,9 @@ class HomeComponent extends Component {
         </div>
         <div className='p-col'>
           <div className='p-field'>
-            <label htmlFor='integeronly'>Cost: </label>
+            <label htmlFor='cost'>Cost: </label>
             <InputNumber
-              id='integeronly'
+              id='cost'
               value={this.state.cost}
               onValueChange={(e) => this.setState({ cost: e.value })}
             />
