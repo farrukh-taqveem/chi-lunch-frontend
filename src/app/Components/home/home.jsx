@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { ListBox } from "primereact/listbox";
+import Api from '../shared/apiService';
 
 class HomeComponent extends Component {
     constructor(props) {
@@ -11,6 +12,13 @@ class HomeComponent extends Component {
             userList: []
         }
     }
+componentDidMount(){
+    this.getUsers();
+}
+getUsers = async()=>{
+    const resp = await Api.get('user');
+    console.log('response from users',resp)
+}
   render() {
     return (
       <div>
