@@ -7,28 +7,19 @@ import { withRouter } from "react-router-dom";
 class TopBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showDialog: false,
-    };
   }
   render() {
     const leftContents = (
       <React.Fragment>
         <Button label='Home' icon='pi pi-home' className='p-mr-2' />
-        <Button
-          label='Explore Markets'
-          icon='pi pi-search'
-          className='p-button-success'
-        />
       </React.Fragment>
     );
 
     const rightContents = (
       <React.Fragment>
         <Button
-          onClick={() => this.setState({ showDialog: true })}
-          label='Login'
-          icon='pi pi-unlock'
+          label='Summary'
+          icon='pi pi-pencil'
           className='p-mr-2'
         />
       </React.Fragment>
