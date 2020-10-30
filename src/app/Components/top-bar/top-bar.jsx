@@ -31,9 +31,6 @@ class TopBar extends Component {
       </div>
     );
   }
-  hideDialog = ()=>{
-    this.setState({ showDialog: false })
-  }
 }
 
 export default withRouter(TopBar);
