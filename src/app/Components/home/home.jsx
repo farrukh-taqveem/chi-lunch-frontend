@@ -97,9 +97,7 @@ class HomeComponent extends Component {
   };
   changeAmount = (event, idx) =>{
       const payments = this.state.payments;
-      const payment = payments[idx];
-      payment.amount = event.target.value;
-      payments[idx] = payment;
+      payments[idx].amount = event.target.value;
       this.setState({payments:payments})
   }
 }
