@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
 import { ListBox } from "primereact/listbox";
 import { InputNumber } from "primereact/inputnumber";
 import Api from "../shared/apiService";
@@ -11,27 +12,17 @@ class HomeComponent extends Component {
       selectedUsers: null,
       userList: [],
       cost: 0,
+      payments: [{amount:0, paidBy: null}]
     };
   }
   componentDidMount() {
     this.getUsers();
   }
-  getUsers = async () => {
-    const resp = await Api.get("user");
-    if (resp.status === 200) {
-      for (const user of resp.data.data) {
-        user.fullName = user.firstName + " " + user.lastName;
-      }
-      const regularUsers = resp.data.data.filter(
-        (user) => user.type === "Regular"
-      );
-      this.setState({ userList: resp.data.data, selectedUsers: regularUsers });
-    }
-  };
+
   render() {
     return (
       <div className='p-grid'>
-        <div className="p-col">
+        <div className='p-col-4'>
           <h4>Select Participants</h4>
           <ListBox
             value={this.state.selectedUsers}
@@ -52,9 +43,51 @@ class HomeComponent extends Component {
               onValueChange={(e) => this.setState({ cost: e.value })}
             />
           </div>
+          <div className='p-grid'>
+            <div className='p-col'>
+              {" "}
+              <Dropdown
+                value={this.state.selectedCity1}
+                options={this.state.userList}
+                onChange={() => {}}
+                optionLabel='fullName'
+                placeholder='Select Participant'
+              />
+            </div>
+            <div className='p-col'>
+              {" "}
+              <div className='p-field'>
+                <label htmlFor='paid'>Paid: </label>
+                <InputNumber
+                  id='paid'
+                  value={this.state.paid}
+                  onValueChange={(e) => this.setState({ paid: e.value })}
+                />
+              </div>
+            </div>
+            <div className='p-col-3'>
+            <Button onClick={this.addPayer}icon="pi pi-plus" />
+            </div>
+          </div>
         </div>
       </div>
     );
+  }
+  getUsers = async () => {
+    const resp = await Api.get("user");
+    if (resp.status === 200) {
+      for (const user of resp.data.data) {
+        user.fullName = user.firstName + " " + user.lastName;
+      }
+      const regularUsers = resp.data.data.filter(
+        (user) => user.type === "Regular"
+      );
+      this.setState({ userList: resp.data.data, selectedUsers: regularUsers });
+    }
+  };
+  addPayer = () => {
+      const newPayment = {amount:0, paidBy: null}
+      this.setState({payments: [...this.payers, ...newPayment]})
   }
 }
 
