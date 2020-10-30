@@ -23,7 +23,7 @@ class HomeComponent extends Component {
   render() {
     return (
       <div className='p-grid'>
-        <div className='p-col-4'>
+        <div className='p-col-12 p-md-4'>
           <h4>Select Participants</h4>
           <ListBox
             value={this.state.selectedUsers}
@@ -35,7 +35,7 @@ class HomeComponent extends Component {
             listStyle={{ maxHeight: "15vw" }}
           />
         </div>
-        <div className='p-col'>
+        <div className='p-col-12 p-md-8'>
           <h4>Payment Details</h4>
           <div className='p-field'>
             <label htmlFor='cost'>Cost:&nbsp;</label>
