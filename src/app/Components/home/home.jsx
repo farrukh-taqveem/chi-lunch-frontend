@@ -63,7 +63,7 @@ class HomeComponent extends Component {
                     <InputNumber
                       id='paid'
                       value={p.amount}
-                      onValueChange={(e) => this.setState({ paid: e.value })}
+                      onValueChange={(e) =>this.changeAmount(e, idx)}
                     />
                   </div>
                 </div>
@@ -95,6 +95,13 @@ class HomeComponent extends Component {
         payments: [...state.payments, newPayment]
     }));
   };
+  changeAmount = (event, idx) =>{
+      const payments = this.state.payments;
+      const payment = payments[idx];
+      payment.amount = event.target.value;
+      payments[idx] = payment;
+      this.setState({payments:payments})
+  }
 }
 
 export default HomeComponent;
