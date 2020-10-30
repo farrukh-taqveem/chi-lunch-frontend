@@ -3,6 +3,7 @@ import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { ListBox } from "primereact/listbox";
 import { InputNumber } from "primereact/inputnumber";
+import {Toast} from 'primereact/toast';
 import Api from "../shared/apiService";
 
 class HomeComponent extends Component {
@@ -82,6 +83,7 @@ class HomeComponent extends Component {
               label='Save'
             />
           </div>
+          <Toast ref={(el) => this.toast = el} />
         </div>
       </div>
     );
@@ -118,13 +120,13 @@ class HomeComponent extends Component {
   onSave = () => {
     const members = this.state.selectedUsers.map((user) => user._id);
     const cost = this.state.cost;
-    const payments = this.state.payments.map((p) => {
+    const payments = this.state.payments.filter(p => p.paidBy != null).map((p) => {
       return { amount: p.amount, paidBy: p.paidBy._id };
     });
     Api.post('meal',{members, cost, payments}).then(resp => {
-
+        this.toast.show({severity: 'success', summary: 'Success', detail: 'Record Added'});
     }).catch(err => {
-        console.error(err)
+        this.toast.show({severity: 'error', summary: 'Error', detail: 'Request Failed'});
     })
   };
 }
