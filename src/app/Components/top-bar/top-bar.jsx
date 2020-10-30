@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Button } from "primereact/button";
 import { Toolbar } from "primereact/toolbar";
-import { Dialog } from "primereact/dialog";
 import { withRouter } from "react-router-dom";
+import {Link } from "react-router-dom";
 
 class TopBar extends Component {
   constructor(props) {
@@ -11,17 +11,17 @@ class TopBar extends Component {
   render() {
     const leftContents = (
       <React.Fragment>
-        <Button label='Home' icon='pi pi-home' className='p-mr-2' />
+        <Link style={{textDecoration:'none'}} to=''>
+          <Button label='Home' icon='pi pi-home' className='p-mr-2' />
+        </Link>
       </React.Fragment>
     );
 
     const rightContents = (
       <React.Fragment>
-        <Button
-          label='Summary'
-          icon='pi pi-pencil'
-          className='p-mr-2'
-        />
+        <Link style={{textDecoration:'none'}}  to='summary'>
+          <Button label='Summary' icon='pi pi-pencil' className='p-mr-2' />
+        </Link>
       </React.Fragment>
     );
 
