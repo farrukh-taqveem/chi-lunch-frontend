@@ -35,7 +35,7 @@ class HomeComponent extends Component {
           />
         </div>
         <div className='p-col'>
-        <h4>Payment Details</h4>
+          <h4>Payment Details</h4>
           <div className='p-field'>
             <label htmlFor='cost'>Cost:&nbsp;</label>
             <InputNumber
@@ -74,8 +74,13 @@ class HomeComponent extends Component {
               </div>
             );
           })}
-          <div className="p-d-flex p-jc-end">
-          <Button className="" onClick={this.onSave} icon='pi pi-check' label='Save' />
+          <div className='p-d-flex p-jc-end'>
+            <Button
+              className=''
+              onClick={this.onSave}
+              icon='pi pi-check'
+              label='Save'
+            />
           </div>
         </div>
       </div>
@@ -95,24 +100,33 @@ class HomeComponent extends Component {
   };
   addPayment = () => {
     const newPayment = { amount: 0, paidBy: null };
-    this.setState(state => ({
+    this.setState((state) => ({
       payments: [...state.payments, newPayment],
     }));
   };
   changeAmount = (event, idx) => {
     const payments = this.state.payments;
     payments[idx].amount = event.target.value;
-    this.setState(state =>({ payments: payments }));
+    this.setState((state) => ({ payments: payments }));
   };
   payerUpdate = (event, idx) => {
     const payments = this.state.payments;
     payments[idx].paidBy = event.target.value;
-    this.setState(state =>({ payments: payments }));
+    this.setState((state) => ({ payments: payments }));
   };
 
-  onSave = () =>{
-      console.log(this.state.selectedUsers, this.state.cost, this.state.payments)
-  }
+  onSave = () => {
+    const members = this.state.selectedUsers.map((user) => user._id);
+    const cost = this.state.cost;
+    const payments = this.state.payments.map((p) => {
+      return { amount: p.amount, paidBy: p.paidBy._id };
+    });
+    Api.post('meal',{members, cost, payments}).then(resp => {
+
+    }).catch(err => {
+        console.error(err)
+    })
+  };
 }
 
 export default HomeComponent;
