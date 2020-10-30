@@ -12,7 +12,7 @@ class HomeComponent extends Component {
       selectedUsers: null,
       userList: [],
       cost: 0,
-      payments: [{amount:0, paidBy: null}]
+      payments: [{ amount: 0, paidBy: null }],
     };
   }
   componentDidMount() {
@@ -36,39 +36,43 @@ class HomeComponent extends Component {
         </div>
         <div className='p-col'>
           <div className='p-field'>
-            <label htmlFor='cost'>Cost: </label>
+            <label htmlFor='cost'>Cost:&nbsp;</label>
             <InputNumber
               id='cost'
               value={this.state.cost}
               onValueChange={(e) => this.setState({ cost: e.value })}
             />
           </div>
-          <div className='p-grid'>
-            <div className='p-col'>
-              {" "}
-              <Dropdown
-                value={this.state.selectedCity1}
-                options={this.state.userList}
-                onChange={() => {}}
-                optionLabel='fullName'
-                placeholder='Select Participant'
-              />
-            </div>
-            <div className='p-col'>
-              {" "}
-              <div className='p-field'>
-                <label htmlFor='paid'>Paid: </label>
-                <InputNumber
-                  id='paid'
-                  value={this.state.paid}
-                  onValueChange={(e) => this.setState({ paid: e.value })}
-                />
+          {this.state.payments.map((p, idx) => {
+            return (
+              <div key={`payment-${idx}`} className='p-grid'>
+                <div className='p-col'>
+                  {" "}
+                  <Dropdown
+                    value={this.state.selectedCity1}
+                    options={this.state.userList}
+                    onChange={() => {}}
+                    optionLabel='fullName'
+                    placeholder='Select Participant'
+                  />
+                </div>
+                <div className='p-col'>
+                  {" "}
+                  <div className='p-field'>
+                    <label htmlFor='paid'>Paid:&nbsp;</label>
+                    <InputNumber
+                      id='paid'
+                      value={this.state.paid}
+                      onValueChange={(e) => this.setState({ paid: e.value })}
+                    />
+                  </div>
+                </div>
+                <div className='p-col-3'>
+                  <Button onClick={this.addPayment} icon='pi pi-plus' />
+                </div>
               </div>
-            </div>
-            <div className='p-col-3'>
-            <Button onClick={this.addPayer}icon="pi pi-plus" />
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -85,10 +89,12 @@ class HomeComponent extends Component {
       this.setState({ userList: resp.data.data, selectedUsers: regularUsers });
     }
   };
-  addPayer = () => {
-      const newPayment = {amount:0, paidBy: null}
-      this.setState({payments: [...this.payers, ...newPayment]})
-  }
+  addPayment = () => {
+    const newPayment = { amount: 0, paidBy: null };
+    this.setState((state) => ({
+        payments: [...state.payments, newPayment]
+    }));
+  };
 }
 
 export default HomeComponent;
