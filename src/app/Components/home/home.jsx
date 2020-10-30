@@ -35,6 +35,7 @@ class HomeComponent extends Component {
           />
         </div>
         <div className='p-col'>
+        <h4>Payment Details</h4>
           <div className='p-field'>
             <label htmlFor='cost'>Cost:&nbsp;</label>
             <InputNumber
@@ -51,7 +52,7 @@ class HomeComponent extends Component {
                   <Dropdown
                     value={p.paidBy}
                     options={this.state.userList}
-                    onChange={(e) => {console.log("select", p)}}
+                    onChange={(e) => this.payerUpdate(e, idx)}
                     optionLabel='fullName'
                     placeholder='Select Participant'
                   />
@@ -63,7 +64,7 @@ class HomeComponent extends Component {
                     <InputNumber
                       id='paid'
                       value={p.amount}
-                      onValueChange={(e) =>this.changeAmount(e, idx)}
+                      onValueChange={(e) => this.changeAmount(e, idx)}
                     />
                   </div>
                 </div>
@@ -73,6 +74,9 @@ class HomeComponent extends Component {
               </div>
             );
           })}
+          <div className="p-d-flex p-jc-end">
+          <Button className="" onClick={this.onSave} icon='pi pi-check' label='Save' />
+          </div>
         </div>
       </div>
     );
@@ -91,14 +95,23 @@ class HomeComponent extends Component {
   };
   addPayment = () => {
     const newPayment = { amount: 0, paidBy: null };
-    this.setState((state) => ({
-        payments: [...state.payments, newPayment]
+    this.setState(state => ({
+      payments: [...state.payments, newPayment],
     }));
   };
-  changeAmount = (event, idx) =>{
-      const payments = this.state.payments;
-      payments[idx].amount = event.target.value;
-      this.setState({payments:payments})
+  changeAmount = (event, idx) => {
+    const payments = this.state.payments;
+    payments[idx].amount = event.target.value;
+    this.setState(state =>({ payments: payments }));
+  };
+  payerUpdate = (event, idx) => {
+    const payments = this.state.payments;
+    payments[idx].paidBy = event.target.value;
+    this.setState(state =>({ payments: payments }));
+  };
+
+  onSave = () =>{
+      console.log(this.state.selectedUsers, this.state.cost, this.state.payments)
   }
 }
 
