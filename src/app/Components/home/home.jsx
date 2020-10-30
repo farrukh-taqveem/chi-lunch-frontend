@@ -17,21 +17,26 @@ componentDidMount(){
 }
 getUsers = async()=>{
     const resp = await Api.get('user');
-    console.log('response from users',resp)
+    if(resp.status === 200){
+        for (const user of resp.data.data){
+            user.fullName = user.firstName + ' ' + user.lastName;
+        }
+        const regularUsers = resp.data.data.filter(user=> user.type === 'Regular')
+        this.setState({userList: resp.data.data, selectedUsers: regularUsers})
+    }
 }
   render() {
     return (
       <div>
-        <h5>Advanced with Templating, Filtering and Multiple Selection</h5>
+        <h4>Select Participants</h4>
         <ListBox
           value={this.state.selectedUsers}
           options={this.state.userList}
           onChange={(e) => this.setState({ selectedUsers: e.value })}
           multiple
           filter
-          optionLabel='name'
-          style={{ width: "15rem" }}
-          listStyle={{ maxHeight: "250px" }}
+          optionLabel='fullName'
+          listStyle={{ maxHeight: "15vw" }}
         />
       </div>
     );
