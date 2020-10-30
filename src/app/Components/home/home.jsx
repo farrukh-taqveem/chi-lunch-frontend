@@ -49,9 +49,9 @@ class HomeComponent extends Component {
                 <div className='p-col'>
                   {" "}
                   <Dropdown
-                    value={this.state.selectedCity1}
+                    value={p.paidBy}
                     options={this.state.userList}
-                    onChange={() => {}}
+                    onChange={(e) => {console.log("select", p)}}
                     optionLabel='fullName'
                     placeholder='Select Participant'
                   />
@@ -62,7 +62,7 @@ class HomeComponent extends Component {
                     <label htmlFor='paid'>Paid:&nbsp;</label>
                     <InputNumber
                       id='paid'
-                      value={this.state.paid}
+                      value={p.amount}
                       onValueChange={(e) => this.setState({ paid: e.value })}
                     />
                   </div>
