@@ -41,22 +41,23 @@ class HomeComponent extends Component {
             <label htmlFor='cost'>Cost:&nbsp;</label>
             <InputNumber
               id='cost'
+              size={12}
               value={this.state.cost}
               onValueChange={(e) => this.setState({ cost: e.value })}
             />
           </div>
           <div className="p-grid">
-            <div className="p-col-5">
+            <div className="p-col-6">
               Participant
             </div>
-            <div className="p-col-5">
+            <div className="p-col-4">
               Paid
             </div>
           </div>
           {this.state.payments.map((p, idx) => {
             return (
               <div key={`payment-${idx}`} className='p-grid'>
-                <div className='p-col-5'>
+                <div className='p-col-6'>
                   {" "}
                   <Dropdown
                     value={p.paidBy}
@@ -66,12 +67,13 @@ class HomeComponent extends Component {
                     placeholder='Select Participant'
                   />
                 </div>
-                <div className='p-col-5'>
+                <div className='p-col-4'>
                   {" "}
                   <div className='p-field'>
                     <InputNumber
                       id='paid'
                       value={p.amount}
+                      size={5}
                       onValueChange={(e) => this.changeAmount(e, idx)}
                     />
                   </div>
