@@ -32,7 +32,7 @@ class HomeComponent extends Component {
             multiple
             filter
             optionLabel='fullName'
-            listStyle={{ maxHeight: "15vw" }}
+            listStyle={{ maxHeight: "40vh" }}
           />
         </div>
         <div className='p-col-12 p-md-8'>
@@ -45,10 +45,18 @@ class HomeComponent extends Component {
               onValueChange={(e) => this.setState({ cost: e.value })}
             />
           </div>
+          <div className="p-grid">
+            <div className="p-col-5">
+              Participant
+            </div>
+            <div className="p-col-5">
+              Paid
+            </div>
+          </div>
           {this.state.payments.map((p, idx) => {
             return (
               <div key={`payment-${idx}`} className='p-grid'>
-                <div className='p-col'>
+                <div className='p-col-5'>
                   {" "}
                   <Dropdown
                     value={p.paidBy}
@@ -58,10 +66,9 @@ class HomeComponent extends Component {
                     placeholder='Select Participant'
                   />
                 </div>
-                <div className='p-col'>
+                <div className='p-col-5'>
                   {" "}
                   <div className='p-field'>
-                    <label htmlFor='paid'>Paid:&nbsp;</label>
                     <InputNumber
                       id='paid'
                       value={p.amount}
@@ -69,7 +76,7 @@ class HomeComponent extends Component {
                     />
                   </div>
                 </div>
-                <div className='p-col-3'>
+                <div className='p-col-2'>
                   <Button onClick={this.addPayment} icon='pi pi-plus' />
                 </div>
               </div>

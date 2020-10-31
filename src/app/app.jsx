@@ -4,7 +4,7 @@ import HomeComponent from './Components/home/home';
 import SummaryComponent from './Components/summary/summary';
 import TopBar from './Components/top-bar/top-bar'
 
-class App extends Component {
+class App extends Component { 
     constructor(props) {
       super(props);
   }
