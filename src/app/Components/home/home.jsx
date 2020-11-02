@@ -11,7 +11,7 @@ class HomeComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedUsers: null,
+      selectedUsers: [],
       userList: [],
       cost: 0,
       verificationKey: "c",
@@ -103,8 +103,8 @@ class HomeComponent extends Component {
                 type='password'
                 size={12}
                 value={this.state.verificationKey}
-                onChange={(e) =>
-                  this.setState({ verificationKey: e.value })
+                onChange={(e) =>{
+                  this.setState({ verificationKey: e.target.value })}
                 }
               />
             </div>
