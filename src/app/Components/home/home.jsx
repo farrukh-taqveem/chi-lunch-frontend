@@ -103,9 +103,9 @@ class HomeComponent extends Component {
                 type='password'
                 size={12}
                 value={this.state.verificationKey}
-                onChange={(e) =>{
-                  this.setState({ verificationKey: e.target.value })}
-                }
+                onChange={(e) => {
+                  this.setState({ verificationKey: e.target.value });
+                }}
               />
             </div>
             <Button
@@ -170,6 +170,13 @@ class HomeComponent extends Component {
           severity: "success",
           summary: "Success",
           detail: "Record Added",
+        });
+        this.setState({
+          selectedUsers: [],
+          userList: [],
+          cost: 0,
+          verificationKey: "c",
+          payments: [{ amount: 0, paidBy: null }],
         });
       })
       .catch((err) => {
