@@ -3,7 +3,8 @@ import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { ListBox } from "primereact/listbox";
 import { InputNumber } from "primereact/inputnumber";
-import {Toast} from 'primereact/toast';
+import { InputText } from "primereact/inputtext";
+import { Toast } from "primereact/toast";
 import Api from "../shared/apiService";
 
 class HomeComponent extends Component {
@@ -13,6 +14,7 @@ class HomeComponent extends Component {
       selectedUsers: null,
       userList: [],
       cost: 0,
+      verificationKey:'c',
       payments: [{ amount: 0, paidBy: null }],
     };
   }
@@ -46,13 +48,9 @@ class HomeComponent extends Component {
               onValueChange={(e) => this.setState({ cost: e.value })}
             />
           </div>
-          <div className="p-grid">
-            <div className="p-col-6">
-              Participant
-            </div>
-            <div className="p-col-4">
-              Paid
-            </div>
+          <div className='p-grid'>
+            <div className='p-col-6'>Participant</div>
+            <div className='p-col-4'>Paid</div>
           </div>
           {this.state.payments.map((p, idx) => {
             return (
@@ -84,7 +82,17 @@ class HomeComponent extends Component {
               </div>
             );
           })}
-          <div className='p-d-flex p-jc-end'>
+          <div className='p-d-flex p-jc-between p-ai-center'>
+          <div>
+            <label htmlFor='verificationKey'>Key:&nbsp;</label>
+            <InputText
+              id='verificationKey'
+              type="password"
+              size={12}
+              value={this.state.verificationKey}
+              onValueChange={(e) => this.setState({ verificationKey: e.value })}
+            />
+          </div>
             <Button
               className=''
               onClick={this.onSave}
@@ -92,7 +100,7 @@ class HomeComponent extends Component {
               label='Save'
             />
           </div>
-          <Toast ref={(el) => this.toast = el} />
+          <Toast ref={(el) => (this.toast = el)} />
         </div>
       </div>
     );
@@ -129,14 +137,27 @@ class HomeComponent extends Component {
   onSave = () => {
     const members = this.state.selectedUsers.map((user) => user._id);
     const cost = this.state.cost;
-    const payments = this.state.payments.filter(p => p.paidBy != null).map((p) => {
-      return { amount: p.amount, paidBy: p.paidBy._id };
-    });
-    Api.post('meal',{members, cost, payments}).then(resp => {
-        this.toast.show({severity: 'success', summary: 'Success', detail: 'Record Added'});
-    }).catch(err => {
-        this.toast.show({severity: 'error', summary: 'Error', detail: 'Request Failed'});
-    })
+    const verificationKey = this.state.verificationKey;
+    const payments = this.state.payments
+      .filter((p) => p.paidBy != null)
+      .map((p) => {
+        return { amount: p.amount, paidBy: p.paidBy._id };
+      });
+    Api.post("meal", { members, cost, payments, verificationKey })
+      .then((resp) => {
+        this.toast.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Record Added",
+        });
+      })
+      .catch((err) => {
+        this.toast.show({
+          severity: "error",
+          summary: "Error",
+          detail: "Request Failed",
+        });
+      });
   };
 }
 
