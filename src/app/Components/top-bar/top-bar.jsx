@@ -5,9 +5,6 @@ import { withRouter } from "react-router-dom";
 import {Link } from "react-router-dom";
 
 class TopBar extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const leftContents = (
       <React.Fragment>

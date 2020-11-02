@@ -5,9 +5,7 @@ import SummaryComponent from './Components/summary/summary';
 import TopBar from './Components/top-bar/top-bar'
 
 class App extends Component { 
-    constructor(props) {
-      super(props);
-  }
+
     render() {
       return (
         <BrowserRouter>
