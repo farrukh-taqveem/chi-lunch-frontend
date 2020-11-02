@@ -103,7 +103,7 @@ class HomeComponent extends Component {
                 type='password'
                 size={12}
                 value={this.state.verificationKey}
-                onValueChange={(e) =>
+                onChange={(e) =>
                   this.setState({ verificationKey: e.value })
                 }
               />
