@@ -14,7 +14,7 @@ class HomeComponent extends Component {
       selectedUsers: null,
       userList: [],
       cost: 0,
-      verificationKey:'c',
+      verificationKey: "c",
       payments: [{ amount: 0, paidBy: null }],
     };
   }
@@ -23,6 +23,7 @@ class HomeComponent extends Component {
   }
 
   render() {
+    const paymentsLength = this.state.payments.length || 0;
     return (
       <div className='p-grid'>
         <div className='p-col-12 p-md-4'>
@@ -77,22 +78,36 @@ class HomeComponent extends Component {
                   </div>
                 </div>
                 <div className='p-col-2'>
-                  <Button onClick={this.addPayment} icon='pi pi-plus' />
+                  <Button
+                    className={
+                      idx === paymentsLength - 1 ? "" : "p-button-danger"
+                    }
+                    onClick={() => {
+                      idx === paymentsLength - 1
+                        ? this.addPayment()
+                        : this.removePayment(idx);
+                    }}
+                    icon={`pi pi-${
+                      idx === paymentsLength - 1 ? "plus" : "minus"
+                    }`}
+                  />
                 </div>
               </div>
             );
           })}
           <div className='p-d-flex p-jc-between p-ai-center'>
-          <div>
-            <label htmlFor='verificationKey'>Key:&nbsp;</label>
-            <InputText
-              id='verificationKey'
-              type="password"
-              size={12}
-              value={this.state.verificationKey}
-              onValueChange={(e) => this.setState({ verificationKey: e.value })}
-            />
-          </div>
+            <div>
+              <label htmlFor='verificationKey'>Key:&nbsp;</label>
+              <InputText
+                id='verificationKey'
+                type='password'
+                size={12}
+                value={this.state.verificationKey}
+                onValueChange={(e) =>
+                  this.setState({ verificationKey: e.value })
+                }
+              />
+            </div>
             <Button
               className=''
               onClick={this.onSave}
@@ -121,6 +136,12 @@ class HomeComponent extends Component {
     const newPayment = { amount: 0, paidBy: null };
     this.setState((state) => ({
       payments: [...state.payments, newPayment],
+    }));
+  };
+  removePayment = (idx) => {
+    const payments = this.state.payments.filter((item, index) => index !== idx);
+    this.setState((state) => ({
+      payments: payments,
     }));
   };
   changeAmount = (event, idx) => {
